@@ -2,11 +2,11 @@ import { apiClient } from "./apiClient";
 
 export const tmdbService = {
   // Lấy phim Trending cho Home Screen
-  getTrendingMovies: () => apiClient.get("/trending/movie/week"),
+  getTrendingMovies: (page = 1) => apiClient.get("/trending/movie/week", { params: { page } }),
 
   // Tìm kiếm phim động theo từ khóa
-  searchMovies: (query: string) =>
-    apiClient.get("/search/movie", { params: { query } }),
+  searchMovies: (query: string, page = 1) =>
+    apiClient.get("/search/movie", { params: { query, page } }),
 
   // Chi tiết phim (Kèm vote_average, overview)
   getMovieDetails: (id: string | number) => apiClient.get(`/movie/${id}`),

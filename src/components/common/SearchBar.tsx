@@ -1,6 +1,6 @@
-import React from "react";
-import { View, TextInput, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import React from "react";
+import { TextInput, TouchableOpacity, View } from "react-native";
 
 interface SearchBarProps {
   value: string;
@@ -19,7 +19,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     <View className="flex-row items-center bg-[#333333] px-3 py-2 rounded-md mx-4 my-2">
       <Ionicons name="search" size={20} color="#B3B3B3" style={{ marginRight: 8 }} />
       <TextInput
-        className="flex-1 text-white text-base py-1"
+        className="flex-1 text-white text-xl py-1"
         placeholder={placeholder}
         placeholderTextColor="#B3B3B3"
         value={value}

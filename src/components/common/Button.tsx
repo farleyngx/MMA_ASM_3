@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, Text } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 
 interface ButtonProps {
   title: string;
@@ -17,7 +17,7 @@ export const Button: React.FC<ButtonProps> = ({
   disabled = false,
 }) => {
   let buttonClass = "py-3 px-6 rounded-md items-center justify-center flex-row ";
-  let textClass = "font-bold text-base ";
+  let textClass = "font-bold text-xl ";
 
   if (variant === "primary") {
     buttonClass += "bg-[#E50914] active:bg-[#B20710]";

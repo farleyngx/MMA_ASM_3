@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, FlatList } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { Link } from "expo-router";
+import React, { useEffect, useState } from "react";
+import { FlatList, SafeAreaView, Text, TouchableOpacity, View } from "react-native";
+import { Loader } from "../../components/common/Loader";
+import { MovieCard } from "../../components/movie/MovieCard";
 import { useFavorites } from "../../hooks/useFavorites";
 import { tmdbService } from "../../services/tmdb";
 import { Movie } from "../../types";
-import { MovieCard } from "../../components/movie/MovieCard";
-import { Loader } from "../../components/common/Loader";
 
 export default function FavoritesScreen() {
   const { favorites, loading: favoritesLoading } = useFavorites();
@@ -46,6 +48,7 @@ export default function FavoritesScreen() {
     if (!favoritesLoading) {
       loadFavoriteMovies();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [favorites, favoritesLoading]);
 
   if (favoritesLoading || (loading && movies.length === 0)) {
@@ -53,11 +56,23 @@ export default function FavoritesScreen() {
   }
 
   return (
-    <View className="flex-1 bg-netflix-black">
+    
+    <SafeAreaView className="flex-1 bg-netflix-black">
+      {/* Custom Header */}
+      <View className="flex-row justify-between items-center px-4 py-3">
+        <Text className="text-netflix-red text-[28px] font-black tracking-tighter">
+          NEEDFLEX
+        </Text>
+        <Link href="/search" asChild>
+          <TouchableOpacity className="p-2">
+            <Ionicons name="search" size={26} color="#ffffff" />
+          </TouchableOpacity>
+        </Link>
+      </View>
       {movies.length === 0 ? (
-        <View className="flex-1 justify-center items-center p-6">
-          <Text className="text-white text-lg font-bold mb-2">Danh sách yêu thích trống</Text>
-          <Text className="text-gray-500 text-sm text-center">
+        <View className="flex justify-center items-center pt-16 mt-16">
+          <Text className="text-white text-2xl font-bold mb-2">Danh sách yêu thích trống</Text>
+          <Text className="text-gray-500 text-xl text-center">
             Hãy thêm các bộ phim bạn thích để xem lại sau.
           </Text>
         </View>
@@ -75,6 +90,6 @@ export default function FavoritesScreen() {
           showsVerticalScrollIndicator={false}
         />
       )}
-    </View>
+    </SafeAreaView>
   );
 }

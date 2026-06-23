@@ -57,7 +57,7 @@ Dự án đã được thiết lập cấu trúc thư mục hoàn tất theo **F
     │       ├── MovieCard.tsx         # Card phim tỉ lệ dọc
     │       └── ReviewItem.tsx        # Card hiển thị review của user
     ├── hooks/                        # Logic Layer (Custom hooks)
-    │   ├── useFavorites.ts           # Logic Get/Set/Toggle mảng Favorite IDs
+    │   ├── useFavorites.tsx          # Logic Get/Set/Toggle mảng Favorite IDs
     │   ├── useMovieDetails.ts        # Tải chi tiết & Reviews của phim
     │   ├── useSearch.ts              # Tìm kiếm phim theo từ khóa
     │   └── useTrending.ts            # Tải danh sách phim thịnh hành
@@ -106,7 +106,7 @@ Dự án đã được thiết lập cấu trúc thư mục hoàn tất theo **F
      - [`ReviewItem.tsx`](file:///D:/FPT/SU26/MMA301/Projects/Asm3_SE191034_MovieApp/src/components/movie/ReviewItem.tsx): Hiển thị từng bình luận của user, hỗ trợ xem thêm/thu gọn.
 
 3. **Hooks & Logic (`src/hooks/`):**
-   - [`useFavorites.ts`](file:///D:/FPT/SU26/MMA301/Projects/Asm3_SE191034_MovieApp/src/hooks/useFavorites.ts): Quản lý danh sách ID phim yêu thích lưu trong local storage.
+   - [`useFavorites.tsx`](file:///D:/FPT/SU26/MMA301/Projects/Asm3_SE191034_MovieApp/src/hooks/useFavorites.tsx): Quản lý danh sách ID phim yêu thích lưu trong local storage.
    - [`useMovieDetails.ts`](file:///D:/FPT/SU26/MMA301/Projects/Asm3_SE191034_MovieApp/src/hooks/useMovieDetails.ts): Fetch gộp chi tiết phim và reviews từ API.
    - [`useSearch.ts`](file:///D:/FPT/SU26/MMA301/Projects/Asm3_SE191034_MovieApp/src/hooks/useSearch.ts): Gọi API tìm kiếm theo từ khóa.
    - [`useTrending.ts`](file:///D:/FPT/SU26/MMA301/Projects/Asm3_SE191034_MovieApp/src/hooks/useTrending.ts): Tải danh sách phim thịnh hành.
@@ -131,4 +131,8 @@ Dự án đã được thiết lập cấu trúc thư mục hoàn tất theo **F
 - [ ] **Nhập API Key TMDB:** Cập nhật khóa API thực vào biến `EXPO_PUBLIC_TMDB_API_KEY` trong file [`.env`](file:///D:/FPT/SU26/MMA301/Projects/Asm3_SE191034_MovieApp/.env).
 - [ ] **Khởi động & Chạy thử:** Chạy lệnh `npx expo start --clear` trên máy thật/mô phỏng để kiểm tra hoạt động ứng dụng.
 - [ ] **Xử lý Biên Ngoại lệ (Error Handling):** Bổ sung các thông báo mạng khi mất kết nối hoặc khi không lấy được API Key (ví dụ: hiển thị cảnh báo nếu API Key vẫn để mặc định).
-- [ ] **Tinh chỉnh Giao diện:** Thiết kế lại chi tiết màu sắc, khoảng cách padding của từng card phim để đạt chuẩn visual Netflix cao nhất.
+- [x] **Tinh chỉnh Giao diện:** Thiết kế lại chi tiết màu sắc, khoảng cách padding của từng card phim để đạt chuẩn visual Netflix cao nhất. Đã cập nhật thanh đánh giá 5 sao trong [id].tsx sử dụng Ionicons (nền trắng, sao vàng/xám) đồng bộ theo tham chiếu star-rating.png.
+- [x] **Cập nhật Reactive Favorites Screen:** Triển khai `FavoritesProvider` sử dụng React Context ở `_layout.tsx` để đồng bộ hóa danh sách phim yêu thích tức thời khi thêm/xóa ở màn hình chi tiết, giảm số lượng đọc ghi AsyncStorage không cần thiết.
+- [x] **Tránh Bàn Phím Trang Tìm Kiếm:** Bọc giao diện màn hình search trong `KeyboardAvoidingView` để tránh che khuất nội dung, hỗ trợ tắt bàn phím khi vuốt (`keyboardDismissMode="on-drag"`) và cho phép click chọn trực tiếp phim (`keyboardShouldPersistTaps="handled"`).
+- [x] **Cấu trúc tải phân trang cuộn vô hạn (Stable Infinite Scroll):** Tái cấu trúc hook `useSearch` và `useTrending` sử dụng `useRef` cho các biến kiểm soát trang để giữ tham chiếu callback tĩnh (`useCallback` rỗng), khắc phục triệt để lỗi gọi API lặp vô hạn trước đó và hỗ trợ cuộn dọc tự động tải trang mới mượt mà tại cả màn hình Tìm kiếm (`search.tsx`) và màn hình Thịnh hành (`trending.tsx`).
+- [x] **Trực quan hóa Loading bằng Skeleton:** Tăng thời gian debounce của hộp tìm kiếm lên `800` ms để tránh spam API, thiết lập component `MovieCardSkeleton` tạo hiệu ứng nhấp nháy (Animated opacity) hiển thị dạng lưới tải 3 cột tại màn hình Tìm kiếm (`search.tsx`) và màn hình Thịnh hành (`trending.tsx`) cực kỳ mượt mà chuẩn Netflix.

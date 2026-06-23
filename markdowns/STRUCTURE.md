@@ -48,7 +48,7 @@ Tài liệu này đặc tả cấu trúc mã nguồn, cấu hình môi trường
     │   ├── useTrending.ts            # Fetch danh sách phim thịnh hành
     │   ├── useSearch.ts              # Fetch phim theo từ khóa
     │   ├── useMovieDetails.ts        # Lấy thông tin chi tiết & Reviews
-    │   └── useFavorites.ts           # Logic Get/Set/Toggle mảng ID từ AsyncStorage
+    │   └── useFavorites.tsx          # Logic Get/Set/Toggle mảng ID từ AsyncStorage
     │
     ├── services                      # (Network Layer) Giao tiếp API
     │   ├── apiClient.ts              # Cấu hình Axios Instance chung

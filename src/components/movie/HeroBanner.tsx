@@ -1,7 +1,7 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { Link } from "expo-router";
 import React from "react";
-import { ImageBackground, Text, View } from "react-native";
+import { ImageBackground, Text, View, Animated } from "react-native";
 import { Movie } from "../../types";
 import { getImageUrl } from "../../utils/imageBuilder";
 import { Button } from "../common/Button";
@@ -17,18 +17,18 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ movie }) => {
   const posterUrl = getImageUrl(movie.poster_path, true);
 
   return (
-    <View className="w-full h-[480px] mb-6">
+    <View className="w-full h-[380px] mb-6">
       <ImageBackground
         source={{ uri: posterUrl }}
         className="w-full h-full justify-end"
-        resizeMode="cover"
+        resizeMode="none"
       >
         <LinearGradient
           colors={["transparent", "rgba(20, 20, 20, 0.4)", "#141414"]}
           style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
         />
         <View className="px-6 pb-6 items-center">
-          <Text className="text-white text-3xl font-black text-center mb-2 tracking-wide uppercase">
+          <Text className="text-white text-4xl font-bold text-center mb-2 tracking-wider uppercase">
             {movie.title}
           </Text>
 
@@ -39,9 +39,9 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ movie }) => {
           <View className="flex-row items-center justify-center gap-4">
             <Link href={`/movie/${movie.id}`} asChild>
               <Button
-                title="Chi tiết"
+                title="Xem phim"
                 onPress={() => { }}
-                variant="secondary"
+                variant="primary"
                 className="min-w-[140px] h-[44px]"
               />
             </Link>
@@ -51,6 +51,63 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ movie }) => {
           </View>
         </View>
       </ImageBackground>
+    </View>
+  );
+};
+
+export const HeroBannerSkeleton: React.FC = () => {
+  const fadeAnim = React.useRef(new Animated.Value(0.3)).current;
+
+  React.useEffect(() => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(fadeAnim, {
+          toValue: 0.7,
+          duration: 800,
+          useNativeDriver: true,
+        }),
+        Animated.timing(fadeAnim, {
+          toValue: 0.3,
+          duration: 800,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+  }, [fadeAnim]);
+
+  return (
+    <View className="w-full h-[380px] mb-6 bg-[#141414] justify-end">
+      <Animated.View 
+        style={{ opacity: fadeAnim }} 
+        className="w-full h-full absolute bg-[#1f1f1f]" 
+      />
+      <View className="px-6 pb-6 items-center z-10">
+        {/* Title skeleton */}
+        <Animated.View 
+          style={{ opacity: fadeAnim }} 
+          className="w-3/4 h-8 bg-[#333333] rounded mb-3" 
+        />
+        {/* Subtitle/Overview lines skeletons */}
+        <Animated.View 
+          style={{ opacity: fadeAnim }} 
+          className="w-1/2 h-3 bg-[#333333] rounded mb-2" 
+        />
+        <Animated.View 
+          style={{ opacity: fadeAnim }} 
+          className="w-2/3 h-3 bg-[#333333] rounded mb-5" 
+        />
+        {/* Buttons skeleton */}
+        <View className="flex-row items-center justify-center gap-4">
+          <Animated.View 
+            style={{ opacity: fadeAnim }} 
+            className="w-[140px] h-[44px] bg-[#333333] rounded-md" 
+          />
+          <Animated.View 
+            style={{ opacity: fadeAnim }} 
+            className="w-11 h-11 bg-[#333333] rounded-full" 
+          />
+        </View>
+      </View>
     </View>
   );
 };

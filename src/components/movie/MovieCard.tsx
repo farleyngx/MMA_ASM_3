@@ -1,9 +1,9 @@
-import React from "react";
-import { TouchableOpacity, Image, Text, View } from "react-native";
 import { Link } from "expo-router";
+import React from "react";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Movie } from "../../types";
-import { getImageUrl } from "../../utils/imageBuilder";
 import { getReleaseYear } from "../../utils/dateFormatter";
+import { getImageUrl } from "../../utils/imageBuilder";
 
 interface MovieCardProps {
   movie: Movie;
@@ -15,23 +15,22 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
 
   return (
     <Link href={`/movie/${movie.id}`} asChild>
-      <TouchableOpacity className="w-[110px] mr-4 relative mb-4">
+      <TouchableOpacity className="w-[130px] ">
         <View className="rounded-md overflow-hidden bg-[#1f1f1f]">
           <Image
             source={{ uri: imageUrl }}
-            className="w-full h-[160px] rounded-md"
-            resizeMode="cover"
-            style={{ width: 110, height: 160 }}
+            className="w-full h-[200px]"
+            resizeMode="center"
           />
         </View>
-        <Text className="text-white text-xs font-bold mt-2" numberOfLines={1}>
+        <Text className="text-white text-lg font-bold mt-2" numberOfLines={1}>
           {movie.title}
         </Text>
         <View className="flex-row justify-between items-center mt-1">
-          <Text className="text-gray-400 text-[10px]">{releaseYear}</Text>
+          <Text className="text-gray-400 text-lg">{releaseYear}</Text>
           <View className="flex-row items-center">
-            <Text className="text-yellow-500 text-[10px] mr-0.5">★</Text>
-            <Text className="text-gray-300 text-[10px]">
+            <Text className="text-yellow-500 text-lg mr-0.5">★</Text>
+            <Text className="text-gray-300 text-lg">
               {movie.vote_average ? movie.vote_average.toFixed(1) : "0.0"}
             </Text>
           </View>

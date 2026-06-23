@@ -1,6 +1,6 @@
+import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Ionicons } from '@expo/vector-icons';
 
 export default function TabLayout() {
   return (
@@ -11,13 +11,6 @@ export default function TabLayout() {
         tabBarStyle: {
           backgroundColor: '#141414',
           borderTopColor: '#262626',
-        },
-        headerStyle: {
-          backgroundColor: '#141414',
-        },
-        headerTintColor: '#ffffff',
-        headerTitleStyle: {
-          fontWeight: 'bold',
         },
         headerShown: false,
       }}>
@@ -31,13 +24,21 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="trending"
+        options={{
+          title: 'Thịnh hành',
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons size={24} name={focused ? "trending-up" : "trending-up-outline"} color={color} />
+          )
+        }}
+      />
+      <Tabs.Screen
         name="favorites"
         options={{
           title: 'Yêu thích',
           tabBarIcon: ({ color, focused }) => (
             <Ionicons size={24} name={focused ? "heart" : "heart-outline"} color={color} />
-          ),
-          headerShown: true,
+          )
         }}
       />
     </Tabs>
